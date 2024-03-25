@@ -3,27 +3,46 @@
 		<h1>Device configuration</h1>
 
 		<div class="d-flex flex-column gap-3">
+			<!-- Ink selector -->
+			<div class="d-flex flex-column gap-1">
+				<label>Ink selector</label>
+				<div class="d-flex gap-2">
+					<div v-for="(ink, index) in deviceEditorInks" :key="index" @click="selectInkIndex(index)"
+						@mouseover="onMouseOver(index)" @mouseleave="onMouseLeave(index)">
+						<div>{{ index + 1 }}</div>
+
+						<div 
+							:style="{
+								'background': ink.color ? ink.color : null,
+								'backgroundImage': ink.color ? null : isMouseOver[index] ? inkAddURL : inkEmptyURL,
+								'border-radius': ink.color ? '50%' : null
+							}" 
+							style="width: 10px; height: 10px; cursor: pointer;" 
+							:options="SELECTABLE_INKS"
+						></div>
+						<div>{{ ink.shortName }}</div>
+
+
+						<!-- Menu -->
+						<b-dropdown v-model="selectedInkIndex" :key="index" v-if="selectedInkIndex === index && selectedInkIndex !== null">
+							<div v-for="(selectableInk, inkIndex) in SELECTABLE_INKS" :key="inkIndex" class="list-item">
+								<b-dropdown-item @click="selectInk(selectableInk)" style="cursor: pointer;">{{ selectableInk.name }}</b-dropdown-item>
+							</div>
+						</b-dropdown>
+					</div>
+				</div>
+			</div>
 			<!-- Name configuration -->
 			<div class="d-flex flex-column gap-2">
 				<label id="device-name"> Name </label>
-				<input
-					for="device-name"
-					type="text"
-					v-model="deviceEditorName"
-				/>
+				<input for="device-name" type="text" v-model="deviceEditorName" />
 			</div>
 
 			<div class="d-flex justify-content-end gap-2">
-				<button
-					class="button button-outline-primary"
-					@click="onCancelDeviceConf"
-				>
+				<button class="button button-outline-primary" @click="onCancelDeviceConf">
 					Cancel
 				</button>
-				<button
-					class="button button-primary"
-					@click="onConfirmDeviceConf"
-				>
+				<button class="button button-primary" @click="onConfirmDeviceConf">
 					Confirm
 				</button>
 			</div>
@@ -80,6 +99,19 @@ const DEFAULT_DEVICE_VALUES = Object.freeze({
 
 const deviceEditorId = ref<string>("");
 const deviceEditorName = ref<string>("");
+const deviceEditorInks = ref<Array<Ink>>(Array(INK_SLOT).fill(DEFAULT_EMPTY_INK));
+const selectedInkIndex = ref<number | null>(null);
+
+/**
+ * Variable to check if the mouse is over
+ * The array contains every slots so it is checked individually
+ */
+const isMouseOver = ref<Array<boolean>>(Array(INK_SLOT).fill(false));
+/**
+ * Variables containing icons URLs
+ */
+const inkEmptyURL = "url(/src/assets/icons/ink-empty.svg)";
+const inkAddURL = "url(/src/assets/icons/ink-add.svg)"
 // #endregion
 
 // #region Functions
@@ -99,6 +131,40 @@ function onConfirmDeviceConf(): void {
 		id: deviceEditorId.value,
 		name: deviceEditorName.value,
 	});
+}
+
+/**
+ * The function will pass the variable for the given slot on true when mouse is over it.
+ * @param index index of the slot in the array
+ */
+function onMouseOver(index: number): void {
+	isMouseOver.value[index] = true;
+}
+
+/**
+ * The function will pass the variable for the given slot on false when mouse is leaving it.
+ * @param index index of the slot in the array
+ */
+function onMouseLeave(index: number): void {
+	isMouseOver.value[index] = false;
+}
+
+function selectInkIndex(index: number) {
+	selectedInkIndex.value = index;
+}
+
+function selectInk(ink: Ink): void {
+	if (selectedInkIndex.value !== null) {
+		deviceEditorInks.value[selectedInkIndex.value] = ink;
+		console.log('selectedInkIndex before reset', selectedInkIndex.value);
+		selectedInkIndex.value = null;
+		console.log('selectedInkIndex after reset', selectedInkIndex.value);
+	}
+	selectedInkIndex.value = null;
+}
+
+function toggleDropdown(index: number) {
+	selectedInkIndex.value = selectedInkIndex.value === index ? null : index;
 }
 // #endregion
 

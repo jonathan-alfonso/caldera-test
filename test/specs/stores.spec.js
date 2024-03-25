@@ -26,16 +26,16 @@ describe("Given the store is open", () => {
 			const deviceConf = {
 				name: "Test",
 				// TODO: Must be uncommented when the ink selector feature will be done.
-				// inks: [
-				// 	{ name: "Cyan", color: "rgb(0, 255, 255)", shortName: "C" },
-				// 	{ name: "Magenta", color: "rgb(255, 0, 255)", shortName: "M" },
-				// 	{ name: "Yellow", color: "rgb(255, 255, 0)", shortName: "Y" },
-				// 	{ name: "Black", color: "rgb(0, 0, 0)", shortName: "K" },
-				// 	{ name: "-", color: "", shortName: "-" },
-				// 	{ name: "-", color: "", shortName: "-" },
-				// 	{ name: "-", color: "", shortName: "-" },
-				// 	{ name: "-", color: "", shortName: "-" },
-				// ],
+				inks: [
+					{ name: "Cyan", color: "rgb(0, 255, 255)", shortName: "C" },
+					{ name: "Magenta", color: "rgb(255, 0, 255)", shortName: "M" },
+					{ name: "Yellow", color: "rgb(255, 255, 0)", shortName: "Y" },
+					{ name: "Black", color: "rgb(0, 0, 0)", shortName: "K" },
+					{ name: "-", color: "", shortName: "-" },
+					{ name: "-", color: "", shortName: "-" },
+					{ name: "-", color: "", shortName: "-" },
+					{ name: "-", color: "", shortName: "-" },
+				],
 			};
 
 			await devicesStores.addDevice(deviceConf);

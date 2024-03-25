@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { createDevice, deleteDevice, getAllDevices } from "@src/mocks";
+import { createDevice, deleteDevice, editDevice, getAllDevices } from "@src/mocks";
 import type { Device } from "@src/common/types";
 
 interface DevicesStoreState {
@@ -37,8 +37,10 @@ export const useDevicesStore = defineStore("devices", {
 				[id]: deviceConf,
 			};
 		},
-		modifyDevice() {},
-		removeDevices: async (ids: Array<unknown>): Promise<void> => {
+		async modifyDevice(device: Device): Promise<void> {
+			const id = await editDevice(device);
+		},
+		async removeDevices(ids: Array<string>): Promise<void> {
 			const results = await Promise.allSettled(ids.map((id) => deleteDevice(id)));
 
 			if (results.some((result) => result.status === "rejected")) {
