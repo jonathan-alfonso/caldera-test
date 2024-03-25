@@ -17,4 +17,25 @@ import SettingsContainer from "@src/components/settings/settings-container.vue";
 // #region Data
 const isSettingsOpen = ref<boolean>(false);
 // #endregion
+
+// #region Methods
+const openSettings = (event: KeyboardEvent) => {
+	if (event.altKey && event.shiftKey) {
+		if (isSettingsOpen.value === true) {
+			isSettingsOpen.value = false;
+		} else {
+			isSettingsOpen.value = true;
+		}
+		
+	}
+}
+// #endregion
+
+// #region Lifecycle
+onMounted(() => {
+	window.addEventListener("keydown", openSettings);
+});
+
+
+// #endregion
 </script>

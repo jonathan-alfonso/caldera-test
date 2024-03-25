@@ -66,7 +66,7 @@ async function onConfirmDeviceConf(deviceConf: Device): Promise<void> {
 		return;
 	}
 
-	devicesStore.modifyDevice(deviceConf);
+	// devicesStore.modifyDevice(deviceConf);
 
 	isDeviceConfOpen.value = false;
 	selectedDeviceId.value = "";
@@ -90,7 +90,8 @@ function onEditDevice(id: string): void {
 
 // #region Lifecycles
 try {
-	await devicesStore.refreshDevices();
+	devicesStore.refreshDevices();
+	console.log('djosghihg');
 } catch (error) {
 	console.error("An error occured while refreshing the devices.", error);
 }

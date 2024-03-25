@@ -71,6 +71,8 @@ let DEVICES_API: Device[] = [
 // #endregion
 
 async function getAllDevices(): Promise<Device[]> {
+	console.log("getAllDevices", DEVICES_API);
+
 	return Promise.resolve(DEVICES_API);
 }
 

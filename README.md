@@ -8,7 +8,7 @@ You're in charge of developing an ink selection feature in the device configurat
 
 - Install the dependencies with `npm install`.
 - Read the instructions.
-- Complete the test, push your commit(s) to your forked repository.
+- Complete the test, push your commit(s).
 - When you think the test is ready, you can send it in an archive `.zip` or send a GitHub/GitLab link (your repository must be public) to `[julien.bussi@caldera.com](mailto:julien.bussi@caldera.com)` and `[audrey.sebban@caldera.com](mailto:audrey.sebban@caldera.com)`.
 
 ## Instructions

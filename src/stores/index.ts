@@ -4,7 +4,8 @@ import { createDevice, deleteDevice, getAllDevices } from "@src/mocks";
 import type { Device } from "@src/common/types";
 
 interface DevicesStoreState {
-	devicesByIds: Record<string, Device>;
+	// Added null since devicesByIds is initialized as null in the state
+	devicesByIds: Record<string, Device> | null;
 }
 
 export const useDevicesStore = defineStore("devices", {
@@ -12,13 +13,15 @@ export const useDevicesStore = defineStore("devices", {
 		devicesByIds: null,
 	}),
 	getters: {
-		devices(): any {
+		// Added strict type to devices as it helps with autocompletion and error checking
+		devices(): Device[] {
 			return this.devicesByIds ? Object.values(this.devicesByIds) : [];
 		},
 	},
 	actions: {
 		async refreshDevices(): Promise<void> {
 			const devices = await getAllDevices();
+			console.log("devices", devices);
 
 			this.devicesByIds = devices.reduce((acc: Record<string, Device>, device: Device) => {
 				acc[device.id] = device;
