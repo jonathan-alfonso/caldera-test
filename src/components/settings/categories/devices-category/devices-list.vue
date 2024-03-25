@@ -49,6 +49,7 @@ import { useDevicesStore } from "@src/stores";
 
 import deviceDelete from "@src/assets/icons/device-delete.svg";
 import deviceAdd from "@src/assets/icons/device-add.svg";
+import { i } from "vitest/dist/reporters-P7C2ytIv";
 
 interface Props {
 	checkedDevicesIds: any;
@@ -102,7 +103,7 @@ function onMouseoverDeviceItem(id: string): void {
 }
 
 function onSelectDeviceItem(id: string): void {
-	props.selectedDeviceId = id;
+	emit("update:selected-device-id", id);
 }
 // #endregion
 </script>

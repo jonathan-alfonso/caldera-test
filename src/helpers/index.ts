@@ -12,11 +12,11 @@ function checkDeviceValidity(deviceConf: Device): string | false {
 	}
 
 	// TODO: Must be uncommented when the ink selector feature will be done.
-	// if (!checkDeviceInksValidity(deviceConf.inks)) {
-	// 	message += "Device inks are invalid. (Required inks: Cyan, Magenta, Yellow and Black).";
+	if (!checkDeviceInksValidity(deviceConf.inks)) {
+		message += "Device inks are invalid. (Required inks: Cyan, Magenta, Yellow and Black).";
 
-	// 	return message;
-	// }
+		return message;
+	}
 
 	return false;
 }
